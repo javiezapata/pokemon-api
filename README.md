@@ -149,7 +149,7 @@ Esta API está diseñada para trabajar con un frontend Angular. Para conectar tu
    // environment.prod.ts
    export const environment = {
      production: true,
-     apiUrl: 'https://tu-api-pokemon.onrender.com'
+     apiUrl: 'https://pokemon-api-i36h.onrender.com'
    };
    ```
 
