@@ -1,98 +1,185 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Pokemon API - NestJS Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este es un proyecto backend desarrollado con NestJS que proporciona una API para consultar información sobre Pokémon utilizando la [PokéAPI](https://pokeapi.co/) como fuente de datos.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Características
 
-## Description
+- Arquitectura limpia (Clean Architecture)
+- Consulta de Pokémon por ID o nombre
+- Sistema de caché para mejorar el rendimiento
+- Manejo adecuado de errores
+- Pruebas unitarias
+- Configuración CORS para integración con frontend Angular
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Estructura del Proyecto
 
-## Project setup
-
-```bash
-$ npm install
+```
+src/
+├── main.ts                    # Punto de entrada de la aplicación
+├── app.module.ts              # Módulo principal
+├── domain/                    # Capa de dominio
+│   └── entities/
+│       └── pokemon.entity.ts  # Entidad Pokémon
+├── infrastructure/            # Capa de infraestructura
+│   └── adapters/
+│       └── pokeapi.adapter.ts # Adaptador para PokéAPI
+├── application/               # Capa de aplicación
+│   └── services/
+│       └── pokemon.service.ts # Servicio de negocio
+└── presentation/              # Capa de presentación
+    └── controllers/
+        └── pokemon.controller.ts # Controlador REST
 ```
 
-## Compile and run the project
+## Requisitos Previos
 
-```bash
-# development
-$ npm run start
+- Node.js (v14 o superior)
+- npm o yarn
 
-# watch mode
-$ npm run start:dev
+## Instalación
 
-# production mode
-$ npm run start:prod
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/javiezapata/pokemon-api.git
+   cd pokemon-api
+   ```
+
+2. Instalar las dependencias:
+   ```bash
+   npm install
+   ```
+
+## Configuración
+
+Crear un archivo `.env` en la raíz del proyecto:
+
+```
+PORT=3000
+NODE_ENV=development
 ```
 
-## Run tests
+## Ejecutar la Aplicación
+
+### Desarrollo
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run start:dev
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Producción
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run build
+npm run start
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## Endpoints API
 
-## Resources
+### Obtener información de un Pokémon
 
-Check out a few resources that may come in handy when working with NestJS:
+```
+GET /pokemon/{idOrName}
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Donde `{idOrName}` puede ser:
+- El ID numérico del Pokémon (ej: 25)
+- El nombre del Pokémon (ej: pikachu)
 
-## Support
+#### Respuesta exitosa:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```json
+{
+  "id": 25,
+  "name": "pikachu",
+  "types": ["electric"],
+  "abilities": ["static", "lightning-rod"],
+  "sprite_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+}
+```
 
-## Stay in touch
+#### Respuesta de error (404):
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```json
+{
+  "statusCode": 404,
+  "message": "Pokemon not found"
+}
+```
 
-## License
+## Pruebas
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Pruebas unitarias
+
+```bash
+npm run test
+```
+
+### Pruebas e2e
+
+```bash
+npm run test:e2e
+```
+
+## Despliegue
+
+### Despliegue en Render
+
+1. Crear una nueva aplicación web en [Render](https://render.com)
+2. Conectar con el repositorio
+3. Configurar:
+   - **Environment**: Node
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm run start`
+4. Añadir las variables de entorno necesarias
+
+### Configuración CORS para Frontend Angular
+
+La API ya viene configurada para aceptar peticiones desde:
+- `http://localhost:4200` (desarrollo)
+- La URL de tu aplicación Angular en producción
+
+Si necesitas añadir más orígenes, modifica la configuración CORS en `src/main.ts`.
+
+## Integración con Frontend
+
+Esta API está diseñada para trabajar con un frontend Angular. Para conectar tu aplicación Angular:
+
+1. Configura la URL de la API en tu entorno de Angular:
+   ```typescript
+   // environment.prod.ts
+   export const environment = {
+     production: true,
+     apiUrl: 'https://tu-api-pokemon.onrender.com'
+   };
+   ```
+
+2. Crea un servicio para consumir la API:
+   ```typescript
+   import { Injectable } from '@angular/core';
+   import { HttpClient } from '@angular/common/http';
+   import { Observable } from 'rxjs';
+   import { environment } from '../environments/environment';
+
+   @Injectable({
+     providedIn: 'root'
+   })
+   export class PokemonService {
+     private apiUrl = `${environment.apiUrl}/pokemon`;
+
+     constructor(private http: HttpClient) { }
+
+     getPokemon(idOrName: string | number): Observable<any> {
+       return this.http.get(`${this.apiUrl}/${idOrName}`);
+     }
+   }
+   ```
+
+
+## Autor
+
+Javier Zapata Montoya
+
+## Agradecimientos
+
+- [PokéAPI](https://pokeapi.co/) por proporcionar los datos de Pokémon
+- [NestJS](https://nestjs.com/) por el framework
